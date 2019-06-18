@@ -27,19 +27,19 @@
 #define null NULL
 
 // Offset within the save files
-#define OFFSET_CONTINUE 0x03
-#define OFFSET_CLOAK 0x0B
-#define OFFSET_CURRENT_SYMBOL 0x0F
-#define OFFSET_SCARF_LENGTH 0x13
-#define OFFSET_CURRENT_LEVEL 0x17
-#define OFFSET_COLLECTED_SYMBOLS 0x23
-#define OFFSET_FOUND_HUB 0x53
-#define OFFSET_FOUND_BB 0x63
-#define OFFSET_FOUND_PD 0x73
-#define OFFSET_FOUND_SC 0x83
-#define OFFSET_FOUND_UG 0x93
-#define OFFSET_FOUND_TOWER 0xA3
-#define OFFSET_FOUND_LEVEL09 0xE3
+#define OFFSET_CONTINUE 0x03 // 0x03 on PS3
+#define OFFSET_CLOAK 0x08 // 0x0B on PS3
+#define OFFSET_SCARF_LENGTH 0x10 // 0x13 on PS3
+#define OFFSET_CURRENT_SYMBOL 0x14 // 0x0F on PS3
+#define OFFSET_CURRENT_LEVEL 0x18 // 0x17 on PS3
+#define OFFSET_COLLECTED_SYMBOLS 0x24 // 0x23 on PS3
+#define OFFSET_FOUND_HUB 0x54 // 0x53 on PS3
+#define OFFSET_FOUND_BB 0x1AC // 0x63 on PS3
+#define OFFSET_FOUND_PD 0x304 // 0x73 on PS3
+#define OFFSET_FOUND_SC 0x45C // 0x83 on PS3
+#define OFFSET_FOUND_UG 0x5B4 // 0x93 on PS3
+#define OFFSET_FOUND_TOWER 0x70C // 0xA3 on PS3
+#define OFFSET_FOUND_LEVEL09 0x001 // 0xE3 on PS3 // arbitrary offset to not collide with actual save data
 
 // Values within the save file
 #define VALUE_LEVEL_HUB 0x0
