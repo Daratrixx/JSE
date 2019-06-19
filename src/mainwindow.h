@@ -46,6 +46,31 @@ private slots:
     // User interaction methods
     void ButtonLoad();
     void ButtonSave();
+    void ComboLevelChanged(int index);
+    void SpinScarfLengthChanged(int value);
+    void ComboCloakChanged(int index);
+    void ComboSymbolChanged(int index);
+    void CbHUB0changed(bool checked = false);
+    void CbHUB1changed(bool checked = false);
+    void CbHUB2changed(bool checked = false);
+    void CbBB0changed(bool checked = false);
+    void CbBB1changed(bool checked = false);
+    void CbBB2changed(bool checked = false);
+    void CbPD0changed(bool checked = false);
+    void CbPD1changed(bool checked = false);
+    void CbPD2changed(bool checked = false);
+    void CbPD3changed(bool checked = false);
+    void CbSC0changed(bool checked = false);
+    void CbSC1changed(bool checked = false);
+    void CbSC2changed(bool checked = false);
+    void CbUG0changed(bool checked = false);
+    void CbUG1changed(bool checked = false);
+    void CbUG2changed(bool checked = false);
+    void CbUG3changed(bool checked = false);
+    void CbTOWER0changed(bool checked = false);
+    void CbTOWER1changed(bool checked = false);
+    void CbTOWER2changed(bool checked = false);
+    void CbTOWER3changed(bool checked = false);
 
 
 private:

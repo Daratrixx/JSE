@@ -41,6 +41,32 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect events
     connect(ui->buttonLoad, SIGNAL (released()), this, SLOT (ButtonLoad()));
     connect(ui->buttonSave, SIGNAL (released()), this, SLOT (ButtonSave()));
+    connect(ui->inputLevel, SIGNAL (currentIndexChanged()), this, SLOT (ComboLevelChanged()));
+    connect(ui->inputScarfLength, SIGNAL (valueChanged()), this, SLOT (SpinScarfLengthChanged()));
+    connect(ui->inputSymbol, SIGNAL (currentIndexChanged()), this, SLOT (ComboCloakChanged()));
+    connect(ui->inputCloak, SIGNAL (currentIndexChanged()), this, SLOT (ComboSymbolChanged()));
+
+    connect(ui->cbHUB0, SIGNAL (clicked()), this, SLOT (CbHUB0changed()));
+    connect(ui->cbHUB1, SIGNAL (clicked()), this, SLOT (CbHUB1changed()));
+    connect(ui->cbHUB2, SIGNAL (clicked()), this, SLOT (CbHUB2changed()));
+    connect(ui->cbBB0, SIGNAL (clicked()), this, SLOT (CbBB0changed()));
+    connect(ui->cbBB1, SIGNAL (clicked()), this, SLOT (CbBB1changed()));
+    connect(ui->cbBB2, SIGNAL (clicked()), this, SLOT (CbBB2changed()));
+    connect(ui->cbPD0, SIGNAL (clicked()), this, SLOT (CbPD0changed()));
+    connect(ui->cbPD1, SIGNAL (clicked()), this, SLOT (CbPD1changed()));
+    connect(ui->cbPD2, SIGNAL (clicked()), this, SLOT (CbPD2changed()));
+    connect(ui->cbPD3, SIGNAL (clicked()), this, SLOT (CbPD3changed()));
+    connect(ui->cbSC0, SIGNAL (clicked()), this, SLOT (CbSC0changed()));
+    connect(ui->cbSC1, SIGNAL (clicked()), this, SLOT (CbSC1changed()));
+    connect(ui->cbSC2, SIGNAL (clicked()), this, SLOT (CbSC2changed()));
+    connect(ui->cbUG0, SIGNAL (clicked()), this, SLOT (CbUG0changed()));
+    connect(ui->cbUG1, SIGNAL (clicked()), this, SLOT (CbUG1changed()));
+    connect(ui->cbUG2, SIGNAL (clicked()), this, SLOT (CbUG2changed()));
+    connect(ui->cbUG3, SIGNAL (clicked()), this, SLOT (CbUG3changed()));
+    connect(ui->cbTOWER0, SIGNAL (clicked()), this, SLOT (CbTOWER0changed()));
+    connect(ui->cbTOWER1, SIGNAL (clicked()), this, SLOT (CbTOWER1changed()));
+    connect(ui->cbTOWER2, SIGNAL (clicked()), this, SLOT (CbTOWER2changed()));
+    connect(ui->cbTOWER3, SIGNAL (clicked()), this, SLOT (CbTOWER3changed()));
 }
 
 MainWindow::~MainWindow()
@@ -84,10 +110,10 @@ void MainWindow::DisplaySaveData() {
     }
     try {
         // Set the general state values
-        ui->inputScarfLength->setValue(save->scarfLength);
-        ui->inputCloak->setCurrentIndex(std::max(ui->inputCloak->findData(save->cloak),0));
         ui->inputLevel->setCurrentIndex(std::max(ui->inputLevel->findData(save->level),0));
+        ui->inputScarfLength->setValue(save->scarfLength);
         ui->inputSymbol->setCurrentIndex(std::max(ui->inputSymbol->findData(save->symbol),0));
+        ui->inputCloak->setCurrentIndex(std::max(ui->inputCloak->findData(save->cloak),0));
 
         // Set the discovered symbol checkboxes values
         ui->cbHUB0->setCheckState(save->discoveredSymbolHUB0 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
@@ -123,4 +149,85 @@ void MainWindow::ButtonLoad() {
 }
 void MainWindow::ButtonSave() {
     SaveFile();
+}
+void MainWindow::ComboLevelChanged(int index){
+    if(index > -1) {
+        save->level = (ID)index;
+    }
+}
+void MainWindow::SpinScarfLengthChanged(int value){
+    save->level = (NUMBER)value;
+}
+void MainWindow::ComboCloakChanged(int index){
+    if(index > -1) {
+        save->cloak = (ID)index;
+    }
+}
+void MainWindow::ComboSymbolChanged(int index){
+    if(index > -1) {
+        save->symbol = (ID)index;
+    }
+}
+void MainWindow::CbHUB0changed(bool checked){
+    save->discoveredSymbolHUB0 = checked;
+}
+void MainWindow::CbHUB1changed(bool checked){
+    save->discoveredSymbolHUB1 = checked;
+}
+void MainWindow::CbHUB2changed(bool checked){
+    save->discoveredSymbolHUB2 = checked;
+}
+void MainWindow::CbBB0changed(bool checked){
+    save->discoveredSymbolBB0 = checked;
+}
+void MainWindow::CbBB1changed(bool checked){
+    save->discoveredSymbolBB1 = checked;
+}
+void MainWindow::CbBB2changed(bool checked){
+    save->discoveredSymbolBB2 = checked;
+}
+void MainWindow::CbPD0changed(bool checked){
+    save->discoveredSymbolPD0 = checked;
+}
+void MainWindow::CbPD1changed(bool checked){
+    save->discoveredSymbolPD1 = checked;
+}
+void MainWindow::CbPD2changed(bool checked){
+    save->discoveredSymbolPD2 = checked;
+}
+void MainWindow::CbPD3changed(bool checked){
+    save->discoveredSymbolPD3 = checked;
+}
+void MainWindow::CbSC0changed(bool checked){
+    save->discoveredSymbolSC0 = checked;
+}
+void MainWindow::CbSC1changed(bool checked){
+    save->discoveredSymbolSC1 = checked;
+}
+void MainWindow::CbSC2changed(bool checked){
+    save->discoveredSymbolSC2 = checked;
+}
+void MainWindow::CbUG0changed(bool checked){
+    save->discoveredSymbolUG0 = checked;
+}
+void MainWindow::CbUG1changed(bool checked){
+    save->discoveredSymbolUG1 = checked;
+}
+void MainWindow::CbUG2changed(bool checked){
+    save->discoveredSymbolUG2 = checked;
+}
+void MainWindow::CbUG3changed(bool checked){
+    save->discoveredSymbolUG3 = checked;
+}
+void MainWindow::CbTOWER0changed(bool checked){
+    save->discoveredSymbolTOWER0 = checked;
+}
+void MainWindow::CbTOWER1changed(bool checked){
+    save->discoveredSymbolTOWER1 = checked;
+}
+void MainWindow::CbTOWER2changed(bool checked){
+    save->discoveredSymbolTOWER2 = checked;
+}
+void MainWindow::CbTOWER3changed(bool checked){
+    save->discoveredSymbolTOWER3 = checked;
 }

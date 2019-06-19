@@ -20,7 +20,7 @@ Save* SaveManager::LoadFile(const std::string & path) {
     Save& s = *output; // easier syntax
     try {
 
-        saveFileRead.open(path, std::ifstream::in);
+        saveFileRead.open(path, std::ifstream::in|std::ifstream::binary);
 
         if(!saveFileRead.is_open()) {
             std::cout << "Error: The save file was not opened. Check the path." << std::endl;
@@ -67,11 +67,11 @@ Save* SaveManager::LoadFile(const std::string & path) {
         s.discoveredSymbolTOWER1 = dsTOWER & 0x2;
         s.discoveredSymbolTOWER2 = dsTOWER & 0x4;
         s.discoveredSymbolTOWER3 = dsTOWER & 0x8;
-        FLAG dsLEVEL09 = ReadAtOffset(OFFSET_FOUND_LEVEL09);
-        s.discoveredSymbolLEVEL090 = dsLEVEL09 & 0x1;
-        s.discoveredSymbolLEVEL091 = dsLEVEL09 & 0x2;
-        s.discoveredSymbolLEVEL092 = dsLEVEL09 & 0x4;
-        s.discoveredSymbolLEVEL093 = dsLEVEL09 & 0x8;
+        //FLAG dsLEVEL09 = ReadAtOffset(OFFSET_FOUND_LEVEL09);
+        //s.discoveredSymbolLEVEL090 = dsLEVEL09 & 0x1;
+        //s.discoveredSymbolLEVEL091 = dsLEVEL09 & 0x2;
+        //s.discoveredSymbolLEVEL092 = dsLEVEL09 & 0x4;
+        //s.discoveredSymbolLEVEL093 = dsLEVEL09 & 0x8;
 
     } catch (std::exception e) {
         std::cout << "Exception loading save file: " << e.what() << std::endl;
@@ -107,7 +107,7 @@ bool SaveManager::SaveFile(const Save & save) {
 bool SaveManager::SaveFile(const Save & save, const std::string & path) {
     std::cout << "Attenpting to open (write) file at " << path << std::endl;
     try {
-        saveFileWrite.open(path,std::fstream::out);
+        saveFileWrite.open(path,std::fstream::out|std::ifstream::binary);
 
         // write current journey data
         WriteAtOffset(save.level,OFFSET_CURRENT_LEVEL);
@@ -149,12 +149,12 @@ bool SaveManager::SaveFile(const Save & save, const std::string & path) {
                 (save.discoveredSymbolTOWER2 ? 0x4 : 0x0) |
                 (save.discoveredSymbolTOWER3 ? 0x8 : 0x0) ;
         WriteAtOffset(dsTOWER,OFFSET_FOUND_TOWER);
-        FLAG dsLEVEL09 =
-                (save.discoveredSymbolLEVEL090 ? 0x1 : 0x0) |
-                (save.discoveredSymbolLEVEL091 ? 0x2 : 0x0) |
-                (save.discoveredSymbolLEVEL092 ? 0x4 : 0x0) |
-                (save.discoveredSymbolLEVEL093 ? 0x8 : 0x0) ;
-        WriteAtOffset(dsLEVEL09,OFFSET_FOUND_LEVEL09);
+        //FLAG dsLEVEL09 =
+        //        (save.discoveredSymbolLEVEL090 ? 0x1 : 0x0) |
+        //        (save.discoveredSymbolLEVEL091 ? 0x2 : 0x0) |
+        //        (save.discoveredSymbolLEVEL092 ? 0x4 : 0x0) |
+        //        (save.discoveredSymbolLEVEL093 ? 0x8 : 0x0) ;
+        //WriteAtOffset(dsLEVEL09,OFFSET_FOUND_LEVEL09);
 
         saveFileWrite.flush();
         return true;
