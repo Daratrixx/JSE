@@ -14,13 +14,10 @@ Start the application. You will be asked to locate the SAVE.BIN file. It is most
 Once located, the file will be read and displayed by the application. You can then modify any properties.
 
 ## TO-DOs
- * Add the sources
- * Correct the file locating and reading process
- * Check offsets for certain mistakes
- * Modify the save state on interface interaction
- * Do the writing back into the file part
  * Improve look and usability
+ * Add proper packaging to CMAKE
  * Release first version!
+ * Make a working symbol selector (with pictures)
 
 ## Thanks
 I'd like to thank the wonderful people from the Journey moding community, their knowledge helped kick this project up and running.

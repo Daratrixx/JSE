@@ -42,6 +42,12 @@ public:
     void SaveFile();
     void DisplaySaveData();
 
+    void Error(const std::string & message, const std::string & title = "Error");
+    void Dirty();
+
+    void UpdateDiscoveredSymbolCount(bool);
+    void UpdateContinueButtonVisible(int);
+
 private slots:
     // User interaction methods
     void ButtonLoad();
@@ -50,37 +56,40 @@ private slots:
     void SpinScarfLengthChanged(int value);
     void ComboCloakChanged(int index);
     void ComboSymbolChanged(int index);
-    void CbHUB0changed(bool checked = false);
-    void CbHUB1changed(bool checked = false);
-    void CbHUB2changed(bool checked = false);
-    void CbBB0changed(bool checked = false);
-    void CbBB1changed(bool checked = false);
-    void CbBB2changed(bool checked = false);
-    void CbPD0changed(bool checked = false);
-    void CbPD1changed(bool checked = false);
-    void CbPD2changed(bool checked = false);
-    void CbPD3changed(bool checked = false);
-    void CbSC0changed(bool checked = false);
-    void CbSC1changed(bool checked = false);
-    void CbSC2changed(bool checked = false);
-    void CbUG0changed(bool checked = false);
-    void CbUG1changed(bool checked = false);
-    void CbUG2changed(bool checked = false);
-    void CbUG3changed(bool checked = false);
-    void CbTOWER0changed(bool checked = false);
-    void CbTOWER1changed(bool checked = false);
-    void CbTOWER2changed(bool checked = false);
-    void CbTOWER3changed(bool checked = false);
+    void CbHUB0changed(bool);
+    void CbHUB1changed(bool);
+    void CbHUB2changed(bool);
+    void CbBB0changed(bool);
+    void CbBB1changed(bool);
+    void CbBB2changed(bool);
+    void CbPD0changed(bool);
+    void CbPD1changed(bool);
+    void CbPD2changed(bool);
+    void CbPD3changed(bool);
+    void CbSC0changed(bool);
+    void CbSC1changed(bool);
+    void CbSC2changed(bool);
+    void CbUG0changed(bool);
+    void CbUG1changed(bool);
+    void CbUG2changed(bool);
+    void CbUG3changed(bool);
+    void CbTOWER0changed(bool);
+    void CbTOWER1changed(bool);
+    void CbTOWER2changed(bool);
+    void CbTOWER3changed(bool);
 
 
 private:
     Ui::MainWindow *ui;
 
     // User-written code.
+    // Tool
+    SaveManager* saveManager;
     // Model
     Save* save;
-    // Tool
-    SaveManager saveManager;
+
+    bool loading;
+    bool dirty;
 
 };
 

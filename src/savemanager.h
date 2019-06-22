@@ -15,9 +15,9 @@
  */
 
 
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "defines.h"
 #include "save.h"
 
@@ -25,7 +25,9 @@ class SaveManager {
 
 public:
 
-    SaveManager();
+    explicit SaveManager();
+    ~SaveManager();
+
     // TODO: find a way to generate a path to the Document/Journey folder using %USERNAME%
     std::string GetDefaultSaveFilePath();
 
@@ -52,8 +54,8 @@ public:
 private:
 
     // "clean globals" so the streams are not set in every parameter lists.
-    std::ifstream saveFileRead;
-    std::ofstream saveFileWrite;
+    std::ifstream* saveFileRead;
+    std::fstream* saveFileWrite;
 
 };
 

@@ -27,6 +27,7 @@ CONFIG += c++11
 SOURCES += \
         src/main.cpp \
         src/mainwindow.cpp \
+        src/save.cpp \
         src/savemanager.cpp
 
 HEADERS += \

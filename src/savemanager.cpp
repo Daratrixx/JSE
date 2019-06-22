@@ -1,8 +1,13 @@
 
 #include "savemanager.h"
 
-SaveManager::SaveManager() {
+SaveManager::SaveManager() : saveFileRead(null), saveFileWrite(null) {
 
+}
+
+SaveManager::~SaveManager() {
+   delete saveFileRead;
+   delete saveFileWrite;
 }
 
 std::string SaveManager::GetDefaultSaveFilePath() {
@@ -19,12 +24,14 @@ Save* SaveManager::LoadFile(const std::string & path) {
     Save* output = new Save();
     Save& s = *output; // easier syntax
     try {
+        if(!saveFileRead) saveFileRead = new std::ifstream();
+        if(saveFileRead->is_open()) saveFileRead->close();
 
-        saveFileRead.open(path, std::ifstream::in|std::ifstream::binary);
+        saveFileRead->open(path, std::ifstream::binary|std::ifstream::in);
 
-        if(!saveFileRead.is_open()) {
+        if(!saveFileRead->is_open()) {
             std::cout << "Error: The save file was not opened. Check the path." << std::endl;
-            saveFileRead.close();
+            saveFileRead->close();
             delete output;
             return null;
         }
@@ -72,21 +79,26 @@ Save* SaveManager::LoadFile(const std::string & path) {
         //s.discoveredSymbolLEVEL091 = dsLEVEL09 & 0x2;
         //s.discoveredSymbolLEVEL092 = dsLEVEL09 & 0x4;
         //s.discoveredSymbolLEVEL093 = dsLEVEL09 & 0x8;
+        saveFileRead->close();
 
+        s.discoveredSymbolCount = CountDiscoveredSymbol(s);
+        s.continueButtonVisible = IsContinueButtonVisible(s);
+
+        std::cout << "Loading process successfully ended" << std::endl;
+        return output;
     } catch (std::exception e) {
+        saveFileRead->close();
         std::cout << "Exception loading save file: " << e.what() << std::endl;
-        saveFileRead.close();
         delete output;
         return null;
     }
-    return output;
 }
 
 char* SaveManager::ReadAtOffset(std::streampos offset, std::uint8_t size) {
     char* output = new char[size];
 
-    saveFileRead.seekg(offset);
-    saveFileRead.read(output,size);
+    saveFileRead->seekg(offset);
+    saveFileRead->read(output,size);
 
     return output;
 }
@@ -107,15 +119,20 @@ bool SaveManager::SaveFile(const Save & save) {
 bool SaveManager::SaveFile(const Save & save, const std::string & path) {
     std::cout << "Attenpting to open (write) file at " << path << std::endl;
     try {
-        saveFileWrite.open(path,std::fstream::out|std::ifstream::binary);
+        if(!saveFileWrite) saveFileWrite = new std::fstream();
+        if(saveFileWrite->is_open()) saveFileWrite->close();
+
+        saveFileWrite->open(path,std::ifstream::binary|std::fstream::in|std::fstream::out);
 
         // write current journey data
         WriteAtOffset(save.level,OFFSET_CURRENT_LEVEL);
+        WriteAtOffset(save.continueButtonVisible,OFFSET_CONTINUE);
         WriteAtOffset(save.scarfLength,OFFSET_SCARF_LENGTH);
         WriteAtOffset(save.symbol,OFFSET_CURRENT_SYMBOL);
         WriteAtOffset(save.cloak,OFFSET_CLOAK);
 
         // write global journey data
+        WriteAtOffset(save.discoveredSymbolCount,OFFSET_COLLECTED_SYMBOLS);
         FLAG dsHUB =
                 (save.discoveredSymbolHUB0 ? 0x1 : 0x0) |
                 (save.discoveredSymbolHUB1 ? 0x2 : 0x0) |
@@ -156,18 +173,20 @@ bool SaveManager::SaveFile(const Save & save, const std::string & path) {
         //        (save.discoveredSymbolLEVEL093 ? 0x8 : 0x0) ;
         //WriteAtOffset(dsLEVEL09,OFFSET_FOUND_LEVEL09);
 
-        saveFileWrite.flush();
+        saveFileWrite->flush();
+        saveFileWrite->close();
+        std::cout << "Saving process successfully ended" << std::endl;
         return true;
     } catch (std::exception e) {
-        std::cout << "Exception loading save file: " << e.what() << std::endl;
-        saveFileWrite.close();
+        saveFileWrite->close();
+        std::cout << "Exception saving save file: " << e.what() << std::endl;
         return false;
     }
 }
 
 bool SaveManager::WriteAtOffset(char* data, std::streampos offset, std::uint8_t size) {
-    saveFileWrite.seekp(offset);
-    saveFileWrite.write(data,size);
+    saveFileWrite->seekp(offset);
+    saveFileWrite->write(data,size);
 
     return true;
 }

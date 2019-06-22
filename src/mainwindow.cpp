@@ -2,11 +2,15 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
+#include <string>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    save(null)
+    saveManager(null),
+    save(new Save()),
+    loading(false),
+    dirty(false)
 {
     ui->setupUi(this);
 
@@ -41,40 +45,43 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect events
     connect(ui->buttonLoad, SIGNAL (released()), this, SLOT (ButtonLoad()));
     connect(ui->buttonSave, SIGNAL (released()), this, SLOT (ButtonSave()));
-    connect(ui->inputLevel, SIGNAL (currentIndexChanged()), this, SLOT (ComboLevelChanged()));
-    connect(ui->inputScarfLength, SIGNAL (valueChanged()), this, SLOT (SpinScarfLengthChanged()));
-    connect(ui->inputSymbol, SIGNAL (currentIndexChanged()), this, SLOT (ComboCloakChanged()));
-    connect(ui->inputCloak, SIGNAL (currentIndexChanged()), this, SLOT (ComboSymbolChanged()));
+    connect(ui->inputLevel, SIGNAL(currentIndexChanged(int)), this, SLOT (ComboLevelChanged(int)));
+    connect(ui->inputScarfLength, SIGNAL(valueChanged(int)), this, SLOT (SpinScarfLengthChanged(int)));
+    connect(ui->inputSymbol, SIGNAL(currentIndexChanged(int)), this, SLOT (ComboSymbolChanged(int)));
+    connect(ui->inputCloak, SIGNAL(currentIndexChanged(int)), this, SLOT (ComboCloakChanged(int)));
 
-    connect(ui->cbHUB0, SIGNAL (clicked()), this, SLOT (CbHUB0changed()));
-    connect(ui->cbHUB1, SIGNAL (clicked()), this, SLOT (CbHUB1changed()));
-    connect(ui->cbHUB2, SIGNAL (clicked()), this, SLOT (CbHUB2changed()));
-    connect(ui->cbBB0, SIGNAL (clicked()), this, SLOT (CbBB0changed()));
-    connect(ui->cbBB1, SIGNAL (clicked()), this, SLOT (CbBB1changed()));
-    connect(ui->cbBB2, SIGNAL (clicked()), this, SLOT (CbBB2changed()));
-    connect(ui->cbPD0, SIGNAL (clicked()), this, SLOT (CbPD0changed()));
-    connect(ui->cbPD1, SIGNAL (clicked()), this, SLOT (CbPD1changed()));
-    connect(ui->cbPD2, SIGNAL (clicked()), this, SLOT (CbPD2changed()));
-    connect(ui->cbPD3, SIGNAL (clicked()), this, SLOT (CbPD3changed()));
-    connect(ui->cbSC0, SIGNAL (clicked()), this, SLOT (CbSC0changed()));
-    connect(ui->cbSC1, SIGNAL (clicked()), this, SLOT (CbSC1changed()));
-    connect(ui->cbSC2, SIGNAL (clicked()), this, SLOT (CbSC2changed()));
-    connect(ui->cbUG0, SIGNAL (clicked()), this, SLOT (CbUG0changed()));
-    connect(ui->cbUG1, SIGNAL (clicked()), this, SLOT (CbUG1changed()));
-    connect(ui->cbUG2, SIGNAL (clicked()), this, SLOT (CbUG2changed()));
-    connect(ui->cbUG3, SIGNAL (clicked()), this, SLOT (CbUG3changed()));
-    connect(ui->cbTOWER0, SIGNAL (clicked()), this, SLOT (CbTOWER0changed()));
-    connect(ui->cbTOWER1, SIGNAL (clicked()), this, SLOT (CbTOWER1changed()));
-    connect(ui->cbTOWER2, SIGNAL (clicked()), this, SLOT (CbTOWER2changed()));
-    connect(ui->cbTOWER3, SIGNAL (clicked()), this, SLOT (CbTOWER3changed()));
+    connect(ui->cbHUB0, SIGNAL (clicked(bool)), this, SLOT (CbHUB0changed(bool)));
+    connect(ui->cbHUB1, SIGNAL (clicked(bool)), this, SLOT (CbHUB1changed(bool)));
+    connect(ui->cbHUB2, SIGNAL (clicked(bool)), this, SLOT (CbHUB2changed(bool)));
+    connect(ui->cbBB0, SIGNAL (clicked(bool)), this, SLOT (CbBB0changed(bool)));
+    connect(ui->cbBB1, SIGNAL (clicked(bool)), this, SLOT (CbBB1changed(bool)));
+    connect(ui->cbBB2, SIGNAL (clicked(bool)), this, SLOT (CbBB2changed(bool)));
+    connect(ui->cbPD0, SIGNAL (clicked(bool)), this, SLOT (CbPD0changed(bool)));
+    connect(ui->cbPD1, SIGNAL (clicked(bool)), this, SLOT (CbPD1changed(bool)));
+    connect(ui->cbPD2, SIGNAL (clicked(bool)), this, SLOT (CbPD2changed(bool)));
+    connect(ui->cbPD3, SIGNAL (clicked(bool)), this, SLOT (CbPD3changed(bool)));
+    connect(ui->cbSC0, SIGNAL (clicked(bool)), this, SLOT (CbSC0changed(bool)));
+    connect(ui->cbSC1, SIGNAL (clicked(bool)), this, SLOT (CbSC1changed(bool)));
+    connect(ui->cbSC2, SIGNAL (clicked(bool)), this, SLOT (CbSC2changed(bool)));
+    connect(ui->cbUG0, SIGNAL (clicked(bool)), this, SLOT (CbUG0changed(bool)));
+    connect(ui->cbUG1, SIGNAL (clicked(bool)), this, SLOT (CbUG1changed(bool)));
+    connect(ui->cbUG2, SIGNAL (clicked(bool)), this, SLOT (CbUG2changed(bool)));
+    connect(ui->cbUG3, SIGNAL (clicked(bool)), this, SLOT (CbUG3changed(bool)));
+    connect(ui->cbTOWER0, SIGNAL (clicked(bool)), this, SLOT (CbTOWER0changed(bool)));
+    connect(ui->cbTOWER1, SIGNAL (clicked(bool)), this, SLOT (CbTOWER1changed(bool)));
+    connect(ui->cbTOWER2, SIGNAL (clicked(bool)), this, SLOT (CbTOWER2changed(bool)));
+    connect(ui->cbTOWER3, SIGNAL (clicked(bool)), this, SLOT (CbTOWER3changed(bool)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete save;
+    delete saveManager;
 }
 
 void MainWindow::LoadFile() {
+    if(!saveManager) saveManager = new SaveManager();
     // ensure the destruction of the previous data context
     if(save) delete save;
 
@@ -84,8 +91,21 @@ void MainWindow::LoadFile() {
     auto path = QFileDialog::getOpenFileName(this,
                                      tr("Locate Journey save file (Documents/Journey)"), "/Documents/Journey", tr("Binary file (*.BIN)"));
 
+    if(path == null || path == "null") {
+        Error("Please indicate where the Journey save file is located on your computer. Click Load (ctrl+o)");
+        return;
+    }
+
+
     // get a new context from the path located
-    save = saveManager.LoadFile(path.toStdString());
+    save = saveManager->LoadFile(path.toStdString());
+
+    // update view and editing context
+    dirty = false;
+    std::string title = "Journey Save Editor (" + path.toStdString() + ")";
+    this->setWindowTitle(title.c_str());
+
+    DisplaySaveData();
 }
 void MainWindow::SaveFile() {
 
@@ -96,26 +116,32 @@ void MainWindow::SaveFile() {
     auto path = QFileDialog::getOpenFileName(this,
                                      tr("Locate Journey save file (Documents/Journey)"), "/Documents/Journey", tr("Binary file (*.BIN)"));
 
-    if(saveManager.SaveFile(*save,path.toStdString())) {
-        delete save;
-        save = null;
+    if(!saveManager->SaveFile(*save,path.toStdString())) {
+        Error("An error occured while writing to the save file. The save file was not modified.");
+        return;
     }
+
+    // update context and view
+    dirty = false;
+    std::string title = "Journey Save Editor (" + path.toStdString() + ")";
+    this->setWindowTitle(title.c_str());
 }
 void MainWindow::DisplaySaveData() {
     if(save == null) {
-        QMessageBox msgBox;
-        msgBox.setText("No data context to display. The file was not preoperly loaded.");
-        msgBox.exec();
+        Error("No data context to display. The file was not preoperly loaded.");
         return;
     }
     try {
+        loading = true;
         // Set the general state values
+        ui->labelContinueButtonVisibilityValue->setText(save->continueButtonVisible == VALUE_CONTINUE_TRUE ? "VISIBLE":"HIDDEN");
         ui->inputLevel->setCurrentIndex(std::max(ui->inputLevel->findData(save->level),0));
         ui->inputScarfLength->setValue(save->scarfLength);
         ui->inputSymbol->setCurrentIndex(std::max(ui->inputSymbol->findData(save->symbol),0));
         ui->inputCloak->setCurrentIndex(std::max(ui->inputCloak->findData(save->cloak),0));
 
         // Set the discovered symbol checkboxes values
+        ui->labelDiscoveredSymbolCountValue->setText(NumberToString(save->discoveredSymbolCount).c_str());
         ui->cbHUB0->setCheckState(save->discoveredSymbolHUB0 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
         ui->cbHUB1->setCheckState(save->discoveredSymbolHUB1 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
         ui->cbHUB2->setCheckState(save->discoveredSymbolHUB2 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
@@ -137,12 +163,37 @@ void MainWindow::DisplaySaveData() {
         ui->cbTOWER1->setCheckState(save->discoveredSymbolTOWER1 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
         ui->cbTOWER2->setCheckState(save->discoveredSymbolTOWER2 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
         ui->cbTOWER3->setCheckState(save->discoveredSymbolTOWER3 ? Qt::CheckState::Checked:Qt::CheckState::Unchecked);
+        loading = false;
     } catch (std::exception e) {
-        QMessageBox msgBox;
-        msgBox.setText(e.what());
-        msgBox.exec();
+        Error(e.what());
+        loading = false;
     }
 }
+
+void MainWindow::Error(const std::string & message, const std::string & title) {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(title.c_str());
+    msgBox.setText(message.c_str());
+    msgBox.exec();
+}
+
+void MainWindow::Dirty() {
+    if(!dirty) {
+        dirty = true;
+        setWindowTitle("* " + windowTitle());
+    }
+}
+
+
+void MainWindow::UpdateDiscoveredSymbolCount(bool increased) {
+    save->discoveredSymbolCount += increased ? 1 : -1;
+    ui->labelDiscoveredSymbolCountValue->setText(NumberToString(save->discoveredSymbolCount).c_str());
+}
+void MainWindow::UpdateContinueButtonVisible(int level) {
+    save->continueButtonVisible = IsContinueButtonVisible(*save);
+    ui->labelContinueButtonVisibilityValue->setText(save->continueButtonVisible == VALUE_CONTINUE_TRUE ? "VISIBLE":"HIDDEN");
+}
+
 
 void MainWindow::ButtonLoad() {
     LoadFile();
@@ -151,83 +202,154 @@ void MainWindow::ButtonSave() {
     SaveFile();
 }
 void MainWindow::ComboLevelChanged(int index){
+    if(loading) return;
     if(index > -1) {
         save->level = (ID)index;
+        UpdateContinueButtonVisible(index);
+        Dirty();
     }
 }
 void MainWindow::SpinScarfLengthChanged(int value){
-    save->level = (NUMBER)value;
+    if(loading) return;
+    save->scarfLength = (NUMBER)value;
 }
 void MainWindow::ComboCloakChanged(int index){
+    if(loading) return;
     if(index > -1) {
         save->cloak = (ID)index;
+        Dirty();
     }
 }
 void MainWindow::ComboSymbolChanged(int index){
+    if(loading) return;
     if(index > -1) {
         save->symbol = (ID)index;
+        Dirty();
     }
 }
 void MainWindow::CbHUB0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolHUB0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbHUB1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolHUB1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbHUB2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolHUB2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbBB0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolBB0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbBB1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolBB1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbBB2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolBB2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbPD0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolPD0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbPD1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolPD1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbPD2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolPD2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbPD3changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolPD3 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbSC0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolSC0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbSC1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolSC1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbSC2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolSC2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbUG0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolUG0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbUG1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolUG1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbUG2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolUG2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbUG3changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolUG3 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbTOWER0changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolTOWER0 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbTOWER1changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolTOWER1 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbTOWER2changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolTOWER2 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }
 void MainWindow::CbTOWER3changed(bool checked){
+    if(loading) return;
     save->discoveredSymbolTOWER3 = checked;
+    UpdateDiscoveredSymbolCount(checked);
+    Dirty();
 }

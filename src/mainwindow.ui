@@ -7,8 +7,35 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>450</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string notr="true">Journey Save Editor</string>
@@ -20,550 +47,600 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>50</y>
-      <width>800</width>
-      <height>550</height>
+      <y>60</y>
+      <width>801</width>
+      <height>361</height>
      </rect>
     </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="tabSave">
-     <attribute name="title">
-      <string>Save file</string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>791</width>
-        <height>521</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="spacing">
-        <number>10</number>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="groupBoxCurrentJourney">
+       <property name="title">
+        <string>Current journey</string>
        </property>
-       <property name="leftMargin">
-        <number>5</number>
+       <property name="flat">
+        <bool>false</bool>
        </property>
-       <property name="topMargin">
-        <number>5</number>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>5</number>
-       </property>
-       <item>
-        <widget class="QGroupBox" name="groupBoxCurrentJourney">
-         <property name="title">
-          <string>Current journey</string>
+       <widget class="QWidget" name="formLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>-1</x>
+          <y>19</y>
+          <width>781</width>
+          <height>231</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="horizontalSpacing">
+          <number>10</number>
          </property>
-         <property name="flat">
-          <bool>false</bool>
+         <property name="verticalSpacing">
+          <number>10</number>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
+         <property name="leftMargin">
+          <number>5</number>
          </property>
-         <widget class="QWidget" name="formLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>-1</x>
-            <y>19</y>
-            <width>781</width>
-            <height>231</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout">
-           <property name="horizontalSpacing">
-            <number>10</number>
-           </property>
-           <property name="verticalSpacing">
-            <number>10</number>
-           </property>
-           <property name="leftMargin">
-            <number>5</number>
-           </property>
-           <property name="topMargin">
-            <number>5</number>
-           </property>
-           <property name="rightMargin">
-            <number>5</number>
-           </property>
-           <property name="bottomMargin">
-            <number>5</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="labelLevel">
-             <property name="text">
-              <string>Level</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="inputLevel"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelScarfLength">
-             <property name="text">
-              <string>Scarf length</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="inputScarfLength"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="labelSymbol">
-             <property name="text">
-              <string>Symbol</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="inputSymbol"/>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="labelCloak">
-             <property name="text">
-              <string>Cloak</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QComboBox" name="inputCloak"/>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBoxGlobalSettings">
-         <property name="title">
-          <string>Global settings</string>
+         <property name="topMargin">
+          <number>5</number>
          </property>
-         <widget class="QWidget" name="formLayoutWidget_2">
-          <property name="geometry">
-           <rect>
-            <x>-1</x>
-            <y>19</y>
-            <width>781</width>
-            <height>241</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout_2">
-           <property name="horizontalSpacing">
-            <number>10</number>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelLevel">
+           <property name="text">
+            <string>Level</string>
            </property>
-           <property name="verticalSpacing">
-            <number>10</number>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="inputLevel"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelScarfLength">
+           <property name="text">
+            <string>Scarf length</string>
            </property>
-           <property name="leftMargin">
-            <number>5</number>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="inputScarfLength"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelSymbol">
+           <property name="text">
+            <string>Symbol</string>
            </property>
-           <property name="topMargin">
-            <number>5</number>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="inputSymbol">
+           <property name="enabled">
+            <bool>false</bool>
            </property>
-           <property name="rightMargin">
-            <number>5</number>
+           <property name="cursor">
+            <cursorShape>ForbiddenCursor</cursorShape>
            </property>
-           <property name="bottomMargin">
-            <number>5</number>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
-           <item row="0" column="0">
+           <property name="contextMenuPolicy">
+            <enum>Qt::NoContextMenu</enum>
+           </property>
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="labelCloak">
+           <property name="text">
+            <string>Cloak</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QComboBox" name="inputCloak"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelContinueButtonVisibility">
+           <property name="text">
+            <string>Continue button is:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labelContinueButtonVisibilityValue">
+           <property name="text">
+            <string>HIDDEN</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBoxGlobalSettings">
+       <property name="title">
+        <string>Global settings</string>
+       </property>
+       <widget class="QWidget" name="formLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>-1</x>
+          <y>19</y>
+          <width>781</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_2">
+         <property name="horizontalSpacing">
+          <number>10</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>10</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
             <widget class="QLabel" name="labelDiscoveredSymbols">
              <property name="text">
               <string>Discovered symbols</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QGroupBox" name="groupCS">
-               <property name="title">
-                <string>Chapter select</string>
+           <item>
+            <layout class="QFormLayout" name="formLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelDiscoveredSymbolCount">
+               <property name="text">
+                <string>Total:</string>
                </property>
-               <widget class="QWidget" name="verticalLayoutWidget_9">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>101</width>
-                  <height>77</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_9">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbHUB0">
-                   <property name="text">
-                    <string>Cimetery</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbHUB1">
-                   <property name="text">
-                    <string>Pillar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbHUB2">
-                   <property name="text">
-                    <string>Ledge</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
               </widget>
              </item>
-             <item>
-              <widget class="QGroupBox" name="groupBB">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>120</height>
-                </size>
+             <item row="0" column="1">
+              <widget class="QLabel" name="labelDiscoveredSymbolCountValue">
+               <property name="text">
+                <string>0</string>
                </property>
-               <property name="title">
-                <string>Broken bridge</string>
-               </property>
-               <widget class="QWidget" name="verticalLayoutWidget_2">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>101</width>
-                  <height>77</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_2">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbBB0">
-                   <property name="text">
-                    <string>Sand</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbBB1">
-                   <property name="text">
-                    <string>West cave</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbBB2">
-                   <property name="text">
-                    <string>East sandfall</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupPD">
-               <property name="title">
-                <string>Pink desert</string>
-               </property>
-               <widget class="QWidget" name="verticalLayoutWidget_10">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>101</width>
-                  <height>101</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbPD0">
-                   <property name="text">
-                    <string>East ruin</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbPD1">
-                   <property name="text">
-                    <string>East tower</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbPD2">
-                   <property name="text">
-                    <string>West tower</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbPD3">
-                   <property name="text">
-                    <string>Shrine</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupSC">
-               <property name="title">
-                <string>Sunken city</string>
-               </property>
-               <widget class="QWidget" name="verticalLayoutWidget_11">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>101</width>
-                  <height>77</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_11">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbSC0">
-                   <property name="text">
-                    <string>First slide</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbSC1">
-                   <property name="text">
-                    <string>Rest area</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbSC2">
-                   <property name="text">
-                    <string>Second slide</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupU">
-               <property name="title">
-                <string>Underground</string>
-               </property>
-               <widget class="QWidget" name="verticalLayoutWidget_13">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>101</width>
-                  <height>101</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_13">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbUG0">
-                   <property name="text">
-                    <string>Broken pipe</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbUG1">
-                   <property name="text">
-                    <string>Grass pipe</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbUG2">
-                   <property name="text">
-                    <string>Jellyfish</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbUG3">
-                   <property name="text">
-                    <string>Road of trial</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupT">
-               <property name="title">
-                <string>Tower of light</string>
-               </property>
-               <widget class="QWidget" name="verticalLayoutWidget_12">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>17</y>
-                  <width>112</width>
-                  <height>101</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_12">
-                 <property name="spacing">
-                  <number>5</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QCheckBox" name="cbTOWER0">
-                   <property name="text">
-                    <string>Bottom</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbTOWER1">
-                   <property name="text">
-                    <string>Above entrance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbTOWER2">
-                   <property name="text">
-                    <string>Whale room</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbTOWER3">
-                   <property name="text">
-                    <string>Center</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
               </widget>
              </item>
             </layout>
            </item>
           </layout>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tabConfig">
-     <attribute name="title">
-      <string>Config file</string>
-     </attribute>
-    </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QGroupBox" name="groupCS">
+             <property name="title">
+              <string>Chapter select</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_9">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>101</width>
+                <height>77</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbHUB0">
+                 <property name="text">
+                  <string>Cimetery</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbHUB1">
+                 <property name="text">
+                  <string>Pillar</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbHUB2">
+                 <property name="text">
+                  <string>Ledge</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBB">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>120</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Broken bridge</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>101</width>
+                <height>77</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbBB0">
+                 <property name="text">
+                  <string>Sand</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbBB1">
+                 <property name="text">
+                  <string>West cave</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbBB2">
+                 <property name="text">
+                  <string>East sandfall</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupPD">
+             <property name="title">
+              <string>Pink desert</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_10">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>101</width>
+                <height>101</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbPD0">
+                 <property name="text">
+                  <string>East ruin</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbPD1">
+                 <property name="text">
+                  <string>East tower</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbPD2">
+                 <property name="text">
+                  <string>West tower</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbPD3">
+                 <property name="text">
+                  <string>Shrine</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupSC">
+             <property name="title">
+              <string>Sunken city</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_11">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>101</width>
+                <height>77</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_11">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbSC0">
+                 <property name="text">
+                  <string>First slide</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbSC1">
+                 <property name="text">
+                  <string>Rest area</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbSC2">
+                 <property name="text">
+                  <string>Second slide</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupU">
+             <property name="title">
+              <string>Underground</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_13">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>101</width>
+                <height>101</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbUG0">
+                 <property name="text">
+                  <string>Broken pipe</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbUG1">
+                 <property name="text">
+                  <string>Grass pipe</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbUG2">
+                 <property name="text">
+                  <string>Jellyfish</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbUG3">
+                 <property name="text">
+                  <string>Road of trial</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupT">
+             <property name="title">
+              <string>Tower of light</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_12">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>17</y>
+                <width>112</width>
+                <height>101</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QCheckBox" name="cbTOWER0">
+                 <property name="text">
+                  <string>Bottom</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbTOWER1">
+                 <property name="text">
+                  <string>Above entrance</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbTOWER2">
+                 <property name="text">
+                  <string>Whale room</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbTOWER3">
+                 <property name="text">
+                  <string>Center</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="buttonSave">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>5</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Save (ctrl+s)</string>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+S</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="buttonLoad">
     <property name="geometry">
      <rect>
       <x>25</x>
-      <y>0</y>
-      <width>100</width>
+      <y>5</y>
+      <width>200</width>
       <height>50</height>
      </rect>
     </property>
@@ -573,31 +650,10 @@
      </font>
     </property>
     <property name="text">
-     <string>Load</string>
+     <string>Load (ctrl+o)</string>
     </property>
     <property name="shortcut">
      <string>Ctrl+O</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="buttonSave">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>0</y>
-      <width>100</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Save</string>
-    </property>
-    <property name="shortcut">
-     <string>Ctrl+S</string>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+
+
+
 int main(int argc, char *argv[])
 {
     // Qt-generated code
@@ -10,7 +13,6 @@ int main(int argc, char *argv[])
 
     // User-written code, to initialize the data context
     w.LoadFile();
-    w.DisplaySaveData();
 
     // Qt-generated code
     return a.exec();

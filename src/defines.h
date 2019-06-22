@@ -39,7 +39,7 @@
 #define OFFSET_FOUND_SC 0x45C // 0x83 on PS3
 #define OFFSET_FOUND_UG 0x5B4 // 0x93 on PS3
 #define OFFSET_FOUND_TOWER 0x70C // 0xA3 on PS3
-#define OFFSET_FOUND_LEVEL09 0x001 // 0xE3 on PS3 // arbitrary offset to not collide with actual save data
+#define OFFSET_FOUND_LEVEL09 0x001 // 0xE3 on PS3 // unknown as of now, arbitrary offset to not collide with actual save data
 
 // Values within the save file
 #define VALUE_LEVEL_HUB 0x0
@@ -61,5 +61,8 @@
 #define VALUE_CLOAK_2WHITE 0x4
 #define VALUE_CLOAK_3WHITE 0x5
 #define VALUE_CLOAK_4WHITE 0x6
+
+#define VALUE_CONTINUE_TRUE 0x8D
+#define VALUE_CONTINUE_FALSE 0x8A
 
 #endif // DEFINES_H

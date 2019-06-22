@@ -16,6 +16,7 @@
 
 #include "defines.h"
 
+
 struct Save {
 
     // current journey
@@ -25,6 +26,11 @@ struct Save {
     ID cloak;
 
     // global settings
+
+    FLAG cloakSwitchEnabled;
+    FLAG continueButtonVisible;
+    NUMBER discoveredSymbolCount;
+
     FLAG discoveredSymbolHUB0;
     FLAG discoveredSymbolHUB1;
     FLAG discoveredSymbolHUB2;
@@ -51,6 +57,15 @@ struct Save {
     FLAG discoveredSymbolLEVEL092;
     FLAG discoveredSymbolLEVEL093;
 
+
+
 };
+
+
+NUMBER CountDiscoveredSymbol(const Save & s);
+
+FLAG IsContinueButtonVisible(const Save & s);
+
+std::string NumberToString(NUMBER n);
 
 #endif // SAVE_H
